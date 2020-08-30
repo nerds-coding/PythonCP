@@ -1,44 +1,73 @@
-def InfixToPrefix(data):
-    prefix = ''
-    prev = ''
-    stack = []
+class InfixToPrefix:
 
-    data = data[::-1]
+    def __init__(self, size):
+        self.size = size
 
-    opening = set(('(', '[', '{'))
-    closing = set((')', ']', '}'))
-    final = {a: b for a, b in zip(opening, closing)}
-    association_rule = {'+': '-', '-': '+', '*': '/', '/': '*'}
-    for m in data:
-        if(m.isalpha()):
-            prefix += m
-        elif((association_rule["+"] == m) or (association_rule['-'] == m)) and ((association_rule['*'] == prev) or (association_rule['/'] == prev)):
-            prefix += stack.pop()
-            stack.append(m)
-            prev = m
-        elif((association_rule["+"] == m) or (association_rule['-'] == m)) and ((association_rule['*'] != prev) or (association_rule['/'] != prev)):
-            stack.append(m)
-            prev = m
-        elif(m in closing):
-            stack.append(m)
-        elif(m in opening):
-            while stack:
-                close = stack.pop()
-                if(final[m] == close):
-                    break
-                elif(close not in closing):
-                    prefix += close
-        elif(association_rule['*'] == m or association_rule['/'] == m):
-            stack.append(m)
-            # print(m)
-            prev = m
+        self.stack = []
+        self.output = []
 
-    prefix += ''.join(stack[::-1])
+        self.top = -1
+        self.precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
 
-    print(prefix[::-1])
+    def isEmpty(self):
+        return self.stack == []
 
+    def peek(self):
+        return self.stack[-1]
+
+    def pop(self):
+        if not self.isEmpty():
+            self.top -= 1
+            return self.stack.pop()
+        else:
+            return "#"
+
+    def push(self, val):
+        self.top += 1
+        self.stack.append(val)
+
+    def isGreater(self, val):
+        try:
+            a = self.precedence[val]
+            b = self.precedence[self.peek()]
+            return True if a <= b else False
+        except(KeyError):
+            return False
+
+    def isOperand(self, val):
+        return val.isalpha()
+
+    def prefix(self, data):
+        data = data[::-1]
+
+        for i in data:
+
+            if(self.isOperand(i)):
+                self.output.append(i)
+
+            elif(i == ')'):
+                self.push(i)
+
+            elif(i == '('):
+                while(not self.isEmpty() and self.peek() != ')'):
+                    self.output.append(self.pop())
+                if(not self.isEmpty())and self.peek() != ')':
+                    return -1
+                else:
+                    self.pop()
+
+            else:
+                while(not self.isEmpty())and self.isGreater(i):
+                    self.output.append(self.pop())
+                self.push(i)
+
+        while(not self.isEmpty()):
+            self.output.append(self.pop())
+
+        print(''.join(self.output[::-1]))
+
+
+n = InfixToPrefix(8)
+n.prefix('(A-B/C)*(A/K-L)')
 
 # *-A/BC-/AKL
-
-if __name__ == '__main__':
-    print(InfixToPrefix('(A - B/C) * (A/K-L)'))
