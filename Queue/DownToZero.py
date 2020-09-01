@@ -1,36 +1,19 @@
-import os
-import sys
-import math
+def getMinStep(n):
+    table = [0]*(n+1)
 
+    for i in range(n+1):
+        table[i] = n-i
 
-def downToZero(N):
-    if N == 0:
-        return 0
-    Q = [(N, 0)]
-    print(Q)
-    setQ = [0] * N
-    while Q:
-        N, steps = Q.pop(0)
-        if N == 1:
-            return steps+1
-        div = int(math.sqrt(N))
-        while div > 1:
-            if N % div == 0 and not setQ[N // div]:
-                Q.append((N // div, steps+1))
-                setQ[N // div] = 1
-            div -= 1
-        if not setQ[N-1]:
-            Q.append((N-1, steps+1))
-            setQ[N-1] = 1
+    for i in range(n, 0, -1):
+
+        if (not(i % 2)):
+            table[i//2] = min(table[i]+1, table[i//2])
+
+        if (not(i % 3)):
+            table[i//3] = min(table[i]+1, table[i//3])
+
+    return table[1]
 
 
 if __name__ == '__main__':
-
-    q = int(input())
-
-    for q_itr in range(q):
-        n = int(input())
-
-        result = downToZero(n)
-
-        print(result)
+    print(getMinStep(10))
