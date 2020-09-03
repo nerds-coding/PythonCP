@@ -6,15 +6,35 @@ class Node:
         self.right = None
 
 
-root = Node(1)
+def insert(root, val):
+    if(root is None or root.value == val.value):
+        return root
 
-node1 = Node(2)
-node2 = Node(3)
-node3 = Node(4)
+    if(root.value < val.value):
+        if(root.right is None):
+            root.right = val
+        else:
+            insert(root.right, val)
+    else:
+        if(root.left is None):
+            root.left = val
+        else:
+            insert(root.left, val)
 
 
-root.left = node1
-root.right = node2
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.value)
+        inorder(root.right)
 
 
-node1.left = node3
+r = Node(50)
+insert(r, Node(30))
+insert(r, Node(20))
+insert(r, Node(40))
+insert(r, Node(70))
+insert(r, Node(60))
+insert(r, Node(80))
+
+inorder(r)
