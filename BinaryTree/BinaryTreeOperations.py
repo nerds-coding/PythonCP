@@ -7,7 +7,7 @@ class Node:
 
 
 def insert(root, val):
-    if(root is None or root.value == val.value):
+    if(root is None or root.value == val):
         return root
 
     if(root.value < val.value):
