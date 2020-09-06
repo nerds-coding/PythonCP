@@ -22,25 +22,6 @@ def insert(root, value):
             insert(root.left, value)
 
 
-def InsertIntoBinaryTree(root, value):
-
-    if(root is None):
-        return root
-
-    if(root.right is None) and (root.left is not None):
-        root.right = Node(value)
-        return root
-
-    if(root.left is None)and (root.right is not None):
-        root.left = Node(value)
-        return root
-
-    if(root.value < value):
-        InsertIntoBinaryTree(root.right, value)
-    else:
-        InsertIntoBinaryTree(root.left, value)
-
-
 def InorderTraversal(root):
     if(root):
         InorderTraversal(root.left)
