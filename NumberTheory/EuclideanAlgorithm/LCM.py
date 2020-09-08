@@ -12,4 +12,4 @@ def lcm(a, b):
 for _ in range(int(input())):
     num = list(map(int, input().split()))
     print(gcd(num[0], num[1]), lcm(num[0], num[1]))
-print(gcd(100, 200), lcm(100, 200))
+#print(gcd(100, 200), lcm(100, 200))
