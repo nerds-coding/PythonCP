@@ -21,8 +21,6 @@ def findingPath(m, n):
 
     row = col+[[1]+m for m in row]
 
-    print(row[0])
-
     for i in range(1, len(row)):
         for j in range(1, len(row[0])):
             row[i][j] = row[i-1][j]+row[i][j-1]
