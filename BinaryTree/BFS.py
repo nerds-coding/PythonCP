@@ -29,6 +29,21 @@ def inorder(root):
         inorder(root.right)
 
 
+def bfs(root):
+    if(not(root)):
+        return root
+    q = [root]
+    while(len(q) > 0):
+        node = q.pop(0)
+
+        if(node.left):
+            q.append(node.left)
+        if(node.right):
+            q.append(node.right)
+    for m in node:
+        print(m.data)
+
+
 root = Node(5)
 insert(root, 1)
 insert(root, 2)
