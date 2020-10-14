@@ -22,10 +22,10 @@ class AdjacencyList:
 
     def iteratingNodes(self):
         for x in range(self.v):
-            print('Vertex {0}'.format(x))
+            print('Vertex {0}'.format(x), end='')
             temp = self.graph[x]
             while temp:
-                print('-> {0}'.format(temp.data))
+                print('-> {0}'.format(temp.data), end='')
                 temp = temp.next
             print()
 
