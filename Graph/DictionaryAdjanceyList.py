@@ -1,30 +1,49 @@
 class Graph:
 
-    def __init__(self, nodes):
-        self.nodes = nodes
-        self.adj = {}
+    def __init__(self, node):
+        self.nodes = node
+        self.adjList = {}
 
-        for node in nodes:
-            self.adj[node] = []
+        for x in self.nodes:
+            self.adjList[x] = []
 
-    def addEdges(self, src, dst):
-        self.adj[src].append(dst)
-        self.adj[dst].append(src)
+    def addEdges(self, s, d):
+        self.adjList[s].append(d)
+        self.adjList[d].append(s)
 
-    def iteratingNodes(self):
-        for node, edges in self.adj.items():
+    def iterateNodes(self):
+        for node, edge in self.adjList.items():
             print(node, end=' ')
-            for edge in edges:
-                print('->', edge, end='')
+            for x in edge:
+                print(' -> ', x, end='')
             print()
 
+    def bfs(self, s):
+        visited = [False]*len(self.nodes)
+        q = list()
 
-g = Graph(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+        q.append(s)
+        visited[self.nodes.index(s)] = True
+        while q:
+            s = q.pop(0)
+            print(s, end=' ')
+            visited[self.nodes.index(s)] = True
+            for x in self.adjList[s]:
+                if(visited[self.nodes.index(x)] == False):
+                    q.append(x)
+                    visited[self.nodes.index(x)] = True
+
+
+nodes = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+
+g = Graph(nodes)
 g.addEdges('A', 'B')
 g.addEdges('A', 'C')
 g.addEdges('B', 'D')
 g.addEdges('B', 'E')
-g.addEdges('F', 'G')
 g.addEdges('E', 'F')
+g.addEdges('D', 'G')
+g.addEdges('F', 'A')
 
-g.iteratingNodes()
+# g.iterateNodes()
+g.bfs('A')
