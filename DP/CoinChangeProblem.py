@@ -1,23 +1,25 @@
-def coinChange(coins,m):
-    arr = [[0 for _ in range(m+1)] for _ in range(len(coins))]
+def coinChange(coins, n):
+
+    table = [[0 for _ in range(n+1)] for _ in range(len(coins))]
 
     for x in range(len(coins)):
-        arr[x][0]=1
+        table[x][0] = 1
+
+    for x in range(n+1):
+        if(not(x % coins[0])):
+            table[0][x] = 1
     
-    for x in range(1,m+1):
-        if(not(x%coins[0])):
-            arr[0][x] = 1
-        else:
-            arr[0][x] = 0
-    
-    for i in range(len(coins)):
-        for j in range(1,m+1):
-            if(coins[i]>j):
-                arr[i][j]=arr[i-1][j]
+    for x in range(len(coins)):
+        for j in range(1,n+1):
+            if(coins[x]>j):
+                table[x][j] = table[x-1][j]
             else:
-                arr[i][j] = arr[i-1][j]+arr[i][j-coins[i]]
-    print(arr[-1][-1])
+                table[x][j] = table[x-1][j]+table[x][j-coins[x]]
+    
+    return table[-1][-1]
+
+arr = [2,3,5,10]
+n = 15
+print(coinChange(arr,n))
 
 
-
-coinChange([2,3,5,10],15)
