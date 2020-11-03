@@ -24,7 +24,7 @@ number whose sum is 29.
 
 def findLargestNumber(n,s):
     m = ''
-    for i in range(n):
+    for _ in range(n):
         val =0
         if(s>9):
             val = 9

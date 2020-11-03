@@ -15,18 +15,17 @@ Explanation: 0 + 1 = 1, 1 + 1 = 2,
 
 
 def countSteps(n):
-    counter = 0
-    while(n != 0):
-        sqrt = n**0.5
-        if(sqrt - int(sqrt) == 0):
-            n **= 0.5
-        elif(n > 0) and (sqrt - int(sqrt) != 0):
-            n -= 1
-        counter += 1
-        print(n)
-    return counter
+    step1 = 0
+    step2 = 0
+    while (n):
+        if(not(n%2)):
+            n//=2
+            step1+=1
+        else:
+            n-=1
+            step2+=1
+    return step2+step1
 
 
-#print(countSteps(14))
-sqrt = 2.4
-print(sqrt - int(sqrt) == 0)
+print(countSteps(13))
+
