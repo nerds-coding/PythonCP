@@ -1,12 +1,15 @@
 def partition(arr,l,h):
     i = l-1
     pivot = arr[h]
+    
     for j in range(l,h):
-        if(arr[j]<pivot):
+        if(arr[j]<=pivot):
             i+=1
             arr[j],arr[i] = arr[i],arr[j]
-    arr[h],arr[i+1] = arr[i+1],arr[h]
-    return i+1
+    
+    i+=1
+    arr[i],arr[h] = arr[h],arr[i]
+    return i
 
 def quickSort(arr,l,h):
     if(l<h):

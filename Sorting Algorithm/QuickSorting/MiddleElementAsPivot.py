@@ -1,26 +1,21 @@
-def quickSort(arr, l, h):
+def partition(arr,l,h):
     i = l
-    j = h
     mid = (l+h)//2
     pivot = arr[mid]
 
-    while(i < j):
-        while(arr[i] < pivot):
+    for j in range(l,h+1):
+        if(arr[j]<pivot):
+            arr[j],arr[i] = arr[i],arr[j]
             i += 1
-        while(arr[j] > pivot):
-            j -= 1
-        if(i < j):
-            arr[i], arr[j] = arr[j], arr[i]
-            i += 1
-            j -= 1
+    return mid
 
-    if(l < j):
-        quickSort(arr, l, mid-1)
-    if(i < h):
-        quickSort(arr, mid+1, h)
+def quickSort(arr,l,h):
+    if(l<h):
+        q= partition(arr,l,h)
+        quickSort(arr,l,q-1)
+        quickSort(arr,q+1,h)
 
-
-arr = [34, 2, 1, 45, 67, 89, 90, 323, 56, 787, 8900]
+arr = [34, 2, 1, 45, 67, 667,7899,89, 90, 323, 56, 787, 8900]
 quickSort(arr, 0, len(arr)-1)
 
 print(arr)
