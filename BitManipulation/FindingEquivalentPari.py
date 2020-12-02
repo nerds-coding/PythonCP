@@ -17,4 +17,4 @@ def sumXor(n):
     return (1 << count)
 
 
-sumXor(5)
+print(sumXor(5))
