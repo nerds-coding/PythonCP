@@ -1,4 +1,7 @@
 import numpy as np
+
+# Rat in Maze with Two Direction
+
 def RatInMaze(board,x,y,n):
     sol = [[0 for _ in range(n)] for _ in range(n)]
 

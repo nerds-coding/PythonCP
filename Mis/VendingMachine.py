@@ -1,78 +1,20 @@
-from collections import defaultdict
-class Graph:
-    def __init__(self, vertices):
-        self.V = vertices 
-        self.graph = [] 
- 
+def primeSum(n):
+    arr = [i for i in range(1,n+1)]
+    pr = []
+    flag =False
+    for i in arr:
+        if(i==1):
+            flag = True
+        if(i==2):
+            pr.append(2)
+            flag = True
+        for j in range(2,i):
+            if(not(i%j)):
+                flag = True
+        if(not(flag)):
+            pr.append(i)
+        flag=False
+    return sum(pr)
 
-    def addEdge(self, u, v, w):
-        self.graph.append([u, v, w])
- 
-    def find(self, parent, i):
-         if parent[i] == i:
-             return i
-         return self.find(parent, parent[i])
- 
-    def union(self, parent, rank, x, y):
-        xroot = self.find(parent, x)
-        yroot = self.find(parent, y)
- 
-        if rank[xroot] < rank[yroot]:
-            parent[xroot] = yroot
-        elif rank[xroot] > rank[yroot]:
-            parent[yroot] = xroot
-        else:
-            parent[yroot] = xroot
-            rank[xroot] += 1
- 
-    def KruskalMST(self):
- 
-        result = []  
-        
-        i = 0
-        
-        e = 0
+print(primeSum(5))
 
-        self.graph = sorted(self.graph,
-                            key=lambda item: item[2])
- 
-        parent = []
-        rank = []
- 
-        for node in range(self.V):
-            parent.append(node)
-            rank.append(0)
- 
-        while e < self.V - 1:
-
-            u, v, w = self.graph[i]
-            i = i + 1
-            x = self.find(parent, u)
-            y = self.find(parent, v)
-
-            if x != y:
-                e = e + 1
-                result.append([u, v, w])
-                self.union(parent, rank, x, y)
- 
-        minimumCost = 0
-        print("Edges in the constructed MST")
-         for u, v, weight in result:
-            minimumCost += weight
-            print("%d -- %d == %d" % (u, v, weight))
-         print("Minimum Spanning Tree", minimumCost)
- 
-g = Graph(6)
-g.addEdge(1, 6, 14)
-g.addEdge(1, 3, 9)
-g.addEdge(1, 2, 7)
-g.addEdge(2, 3, 10)
-g.addEdge(2, 4, 15)
-g.addEdge(3, 6, 2)
-g.addEdge(3, 4, 11)
-g.addEdge(6, 5, 9)
-g.addEdge(4, 5, 6)
-
- 
-
-g.KruskalMST()
